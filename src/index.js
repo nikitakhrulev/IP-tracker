@@ -3,6 +3,7 @@ import { validateIp } from "./helpers";
 const ipInput = document.querySelector('.search-bar__input');
 const btn = document.querySelector('button');
 btn.addEventListener('click', getData);
+btn.addEventListener('touchstart', getData);
 ipInput.addEventListener('keydown', handleKey);
 
 function getData() {
@@ -12,7 +13,8 @@ function getData() {
         .then(response => response.json())
         .then(data => printData(data))
         
-    } 
+    }
+    getParametres(ipCheck) 
 };
 function handleKey(evt) {
     if (evt.key === 'Enter') {
@@ -32,3 +34,9 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 var marker = L.marker([52.3716, 4.8883]).addTo(map);
+
+function getParametres(ip) {
+    fetch(`http://ip-api.com/json/${ip}`)
+    .then(response => response.json())
+    .then(data => console.log(data))
+}
