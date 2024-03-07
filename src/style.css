@@ -14,6 +14,9 @@
     text-align: center;
     position: relative;
   }
+  #map {
+    height: 60vh;
+  }
   @media (min-width: 1024px) {
     .finder {
       padding: 2rem 1.5rem;

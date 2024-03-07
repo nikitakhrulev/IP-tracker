@@ -25,3 +25,10 @@ function printData(data) {
     document.getElementById('timezone').textContent = data.location.timezone;
     document.getElementById('isp').textContent = data.isp;
 }
+
+var map = L.map('map').setView([51.505, -0.09], 13);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+var marker = L.marker([52.3716, 4.8883]).addTo(map);
