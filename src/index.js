@@ -5,6 +5,7 @@ const btn = document.querySelector('button');
 btn.addEventListener('click', getData);
 btn.addEventListener('touchstart', getData);
 ipInput.addEventListener('keydown', handleKey);
+let marker;
 
 function getData() {
     const ipCheck = ipInput.value;
@@ -28,15 +29,25 @@ function printData(data) {
     document.getElementById('isp').textContent = data.isp;
 }
 
-var map = L.map('map').setView([51.505, -0.09], 13);
+let map = L.map('map').setView([51.505, -0.09], 13);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
-var marker = L.marker([52.3716, 4.8883]).addTo(map);
+
+function handleMap(lat, lon) {
+    if (marker) {
+        map.removeLayer(marker)
+    }
+    marker = L.marker([lat, lon]).addTo(map);
+    map.setView([lat, lon], 12);   
+}
 
 function getParametres(ip) {
     fetch(`http://ip-api.com/json/${ip}`)
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => {
+        const {lat, lon} = data
+        handleMap(lat, lon)
+    })
 }
