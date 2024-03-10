@@ -3,7 +3,6 @@ import { validateIp } from "./helpers";
 const ipInput = document.querySelector('.search-bar__input');
 const btn = document.querySelector('button');
 btn.addEventListener('click', getData);
-btn.addEventListener('touchstart', getData);
 ipInput.addEventListener('keydown', handleKey);
 let marker;
 
